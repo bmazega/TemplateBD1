@@ -5,9 +5,8 @@ Trabalho desenvolvido durante a disciplina de BD1
 
 ### 1. COMPONENTES<br>
 Integrantes do grupo<br>
-Brayan Mazega de Freitas Souza - brayanmazega@gmail.com...<br>
+Brayan Mazega de Freitas Souza - brayanmazega@gmail.com
 Irene Schmidt da Silva Alves -  irenealvesbsi@gmail.com...<br>
-Irlane Schmidt da Silva Alves -  irlanesilvabsi@gmail.com...<br>
 
 
 ### 2.MINI-MUNDO<br>
@@ -25,13 +24,14 @@ gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
     a) O sistema proposto poderá fornecer quais tipos de relatórios e informaçes? 
     b) Crie uma lista com os 5 principais relatórios que poderão ser obtidos por meio do sistema proposto!
     
-> A Empresa DevCom precisa inicialmente dos seguintes relatórios:
-* Relatório que mostre o nome de cada supervisor(a) e a quantidade de empregados supervisionados.
-* Relatório relativo aos os supervisores e supervisionados. O resultado deve conter o nome do supervisor e nome do supervisionado além da quantidade total de horas que cada supervisionado tem alocada aos projetos existentes na empresa.
-* Relatorio que mostre para cada linha obtida o nome do departamento, o valor individual de cada salario existente no  departamento e a média geral de salarios dentre todos os empregados. Os resultados devem ser apresentados ordenados por departamento.
-* Relatório que mostre as informações relacionadas a todos empregados de empresa (sem excluir ninguém). As linhas resultantes devem conter informações sobre: rg, nome, salario do empregado, data de início do salario atual, nomes dos projetos que participa, quantidade de horas e localização nos referidos projetos, numero e nome dos departamentos aos quais está alocado, informações do historico de salário como inicio, fim, e valores de salarios antigos que foram inclusos na referida tabela (caso possuam informações na mesma), além de todas informações relativas aos dependentes. 
->> ##### Observações: <br> a) perceba que este relatório pode conter linhas com alguns dados repetidos (mas não todos). <br>  b) para os empregados que não possuirem alguma destas informações o valor no registro deve aparecer sem informação/nulo.  <br>  c) Observe que para entregar os relatórios propostos, todos os atributos necessários nos relatórios deverão existir ou derivar de atributos existentes.
-* Relatório que obtenha a frequencia absoluta e frequencia relativa da quantidade de cpfs únicos no relatório anterior. Apresente os resultados ordenados de forma decrescente pela frequencia relativa. 
+> A academia precisa inicialmente dos seguintes relatórios:
+
+> Relatório de Alunos por Plano: Detalhando o nome, CPF, peso, data de nascimento, altura e o plano assinado por cada aluno.
+> Relatório de Professores por Especialidade: Listando o nome, CPF, data de nascimento e especialidade de cada professor, incluindo as franquias em que trabalham.
+> Relatório de Utilização das Academias: Informando a localização das academias, horários de abertura e fechamento, quantidade de alunos e as franquias associadas.
+> Relatório Financeiro dos Planos: Incluindo nome, valor e período de cada plano, com análise de receitas geradas.
+> Relatório de Atividades: Detalhando o nome da atividade, o professor responsável e as franquias onde são oferecidas.
+
 
     
 ### 5.MODELO CONCEITUAL<br>
@@ -44,7 +44,7 @@ gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
         Criar o esquema de forma a garantir a redução de informação redundante, possibilidade de valores null, 
         e tuplas falsas (Aplicar os conceitos de normalização abordados).   
         
-![image](https://github.com/user-attachments/assets/d8275e9d-a681-4141-8644-453a227b16bf)
+![Alt text](https://github.com/discipbd1/trab01/blob/master/images/concept_sample.png?raw=true "Modelo Conceitual")
     
     
 #### 5.1 Validação do Modelo Conceitual
@@ -65,9 +65,142 @@ gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
         b) verificação de correspondencia com o modelo conceitual 
         (não serão aceitos modelos que não estejam em conformidade)
 
+ ![image](https://github.com/user-attachments/assets/45f4b03f-a2d1-4e31-9a9b-b692a77cf74d)
+
+
 ### 7	MODELO FÍSICO<br>
         a) inclusão das instruções de criacão das estruturas em SQL/DDL 
         (criação de tabelas, alterações, etc..) 
+
+ Link do arquivo SQL: https://drive.google.com/file/d/1S4HYxToX4RqePdT1QIH37pUuOmP0g7R6/view?usp=drive_link
+
+CREATE TABLE PESSOA (
+    codigo INTEGER PRIMARY KEY,
+    nome VARCHAR,
+    cpf VARCHAR,
+    data_nascimento DATE
+);
+
+CREATE TABLE ATIVIDADE (
+    codigo INTEGER PRIMARY KEY,
+    nome VARCHAR
+);
+
+CREATE TABLE ALUNO (
+    altura FLOAT,
+    peso FLOAT,
+    FK_PESSOA_codigo INTEGER PRIMARY KEY
+);
+
+CREATE TABLE PROFESSOR (
+    especialidade VARCHAR,
+    FK_PESSOA_codigo INTEGER PRIMARY KEY
+);
+
+CREATE TABLE FRANQUIA (
+    codigo INTEGER PRIMARY KEY,
+    localizacao VARCHAR,
+    hora_abertura TIME,
+    hora_fechamento TIME
+);
+
+CREATE TABLE PLANO (
+    codigo INTEGER PRIMARY KEY,
+    nome VARCHAR,
+    periodo VARCHAR
+);
+
+CREATE TABLE PROFESSOR_FRANQUIA (
+    fk_PROFESSOR_FK_PESSOA_codigo INTEGER,
+    fk_FRANQUIA_codigo INTEGER,
+    data_hora_inicio TIMESTAMP,
+    data_hora_fim TIMESTAMP
+);
+
+CREATE TABLE ATIVIDADE_FRANQUIA (
+    fk_ATIVIDADE_codigo INTEGER,
+    fk_FRANQUIA_codigo INTEGER
+);
+
+CREATE TABLE PROFESSOR_ATIVIDADE (
+    fk_ATIVIDADE_codigo INTEGER,
+    fk_PROFESSOR_FK_PESSOA_codigo INTEGER
+);
+
+CREATE TABLE ALUNO_FRANQUIA (
+    fk_FRANQUIA_codigo INTEGER,
+    fk_ALUNO_FK_PESSOA_codigo INTEGER,
+    data_hora_inicio TIMESTAMP,
+    data_hora_fim TIMESTAMP
+);
+
+CREATE TABLE ALUNO_PLANO (
+    codigo INTEGER PRIMARY KEY,
+    FK_PLANO_codigo INTEGER,
+    FK_ALUNO_FK_PESSOA_codigo INTEGER,
+    valor NUMERIC (5,2),
+    data DATE
+);
+ 
+ALTER TABLE ALUNO ADD CONSTRAINT FK_ALUNO_2
+    FOREIGN KEY (FK_PESSOA_codigo)
+    REFERENCES PESSOA (codigo)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE PROFESSOR ADD CONSTRAINT FK_PROFESSOR_2
+    FOREIGN KEY (FK_PESSOA_codigo)
+    REFERENCES PESSOA (codigo)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE PROFESSOR_FRANQUIA ADD CONSTRAINT FK_PROFESSOR_FRANQUIA_1
+    FOREIGN KEY (fk_PROFESSOR_FK_PESSOA_codigo)
+    REFERENCES PROFESSOR (FK_PESSOA_codigo)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE PROFESSOR_FRANQUIA ADD CONSTRAINT FK_PROFESSOR_FRANQUIA_2
+    FOREIGN KEY (fk_FRANQUIA_codigo)
+    REFERENCES FRANQUIA (codigo)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE ATIVIDADE_FRANQUIA ADD CONSTRAINT FK_ATIVIDADE_FRANQUIA_1
+    FOREIGN KEY (fk_ATIVIDADE_codigo)
+    REFERENCES ATIVIDADE (codigo)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE ATIVIDADE_FRANQUIA ADD CONSTRAINT FK_ATIVIDADE_FRANQUIA_2
+    FOREIGN KEY (fk_FRANQUIA_codigo)
+    REFERENCES FRANQUIA (codigo)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE PROFESSOR_ATIVIDADE ADD CONSTRAINT FK_PROFESSOR_ATIVIDADE_1
+    FOREIGN KEY (fk_ATIVIDADE_codigo)
+    REFERENCES ATIVIDADE (codigo)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE PROFESSOR_ATIVIDADE ADD CONSTRAINT FK_PROFESSOR_ATIVIDADE_2
+    FOREIGN KEY (fk_PROFESSOR_FK_PESSOA_codigo)
+    REFERENCES PROFESSOR (FK_PESSOA_codigo)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE ALUNO_FRANQUIA ADD CONSTRAINT FK_ALUNO_FRANQUIA_1
+    FOREIGN KEY (fk_FRANQUIA_codigo)
+    REFERENCES FRANQUIA (codigo)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE ALUNO_FRANQUIA ADD CONSTRAINT FK_ALUNO_FRANQUIA_2
+    FOREIGN KEY (fk_ALUNO_FK_PESSOA_codigo)
+    REFERENCES ALUNO (FK_PESSOA_codigo)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE ALUNO_PLANO ADD CONSTRAINT FK_ALUNO_PLANO_1
+    FOREIGN KEY (FK_PLANO_codigo)
+    REFERENCES PLANO (codigo)
+    on delete RESTRICT;
+ 
+ALTER TABLE ALUNO_PLANO ADD CONSTRAINT FK_ALUNO_PLANO_3
+    FOREIGN KEY (FK_ALUNO_FK_PESSOA_codigo)
+    REFERENCES ALUNO (FK_PESSOA_codigo)
+    on delete CASCADE;
 
       
 ### 8	INSERT APLICADO NAS TABELAS DO BANCO DE DADOS<br>
@@ -77,6 +210,81 @@ gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
 	1) Criar um novo banco de dados para testar a restauracao (em caso de falha na restauração o grupo não pontuará neste quesito)
         2) script deve ser incluso no template em um arquivo no formato .SQL
 
+Link do arquivo SQL: https://drive.google.com/file/d/1u_U50AiRucYDfsYLh5BSO2fm2RawzTmN/view?usp=drive_link
+
+INSERT INTO pessoa (codigo, nome, cpf, data_nascimento) 
+VALUES 
+    (1, 'João Silva', '123.456.789-00', '1990-05-15'),
+    (2, 'Maria Santos', '987.654.321-00', '1985-07-20'),
+    (3, 'Pedro Souza', '456.789.123-00', '1998-02-10'),
+    (4, 'Ana Oliveira', '321.654.987-00', '1977-11-25'),
+    (5, 'José Pereira', '789.123.456-00', '2000-09-05'),
+    (6, 'Felipe Azevedo', '855.584.588-00', '1986-10-12'),
+    (7, 'Bruna Gomes', '168.846.752-00', '1995-02-06');
+    
+INSERT INTO aluno (altura, peso, fk_pessoa_codigo) 
+VALUES 
+    (1.75, 70.5, 1),   
+    (1.68, 65.0, 2),  
+    (1.80, 80.2, 3);   
+
+INSERT INTO professor (especialidade, fk_pessoa_codigo) 
+VALUES 
+    ('Educação Física', 4),   
+    ('Nutrição', 5),
+   	('Musculação',6),
+    ('Fit dance', 7);
+    
+INSERT INTO plano (codigo, nome, periodo)
+VALUES
+    (1, 'bronze', 'mensal'),
+    (2, 'silver', 'trimestral'),
+    (3, 'gold', 'semestral');
+   
+INSERT INTO aluno_plano (codigo, fk_plano_codigo, fk_aluno_fk_pessoa_codigo, valor, data)
+VALUES
+    (1, 1, 1, 80.00, '2024-07-11'),  
+    (2, 2, 2, 300.00, '2024-07-11'),  
+    (3, 3, 3, 500.00, '2024-07-11'); 
+
+INSERT INTO franquia (codigo, localizacao, hora_abertura, hora_fechamento)
+VALUES
+    (1, 'Jardim A, 123', '05:00:00', '22:00:00'),
+    (2, 'Praça Verde, 456', '06:30:00', '23:30:00');
+
+insert into atividade (codigo, nome)
+values
+	(1, 'Musculação'),
+	(2, 'Zumba'),
+	(3, 'crossfit'),
+	(4, 'Acompanhamento dieta');
+	
+insert into atividade_franquia (fk_atividade_codigo, fk_franquia_codigo)
+values
+	(1,1),
+	(2,2),
+	(3,2),
+	(4,1);
+
+insert into aluno_franquia (fk_franquia_codigo, fk_aluno_fk_pessoa_codigo, data_hora_inicio, data_hora_fim)
+values
+	(1,1,'2024-07-11 18:00:00', '2024-07-11 19:30:00'),
+	(2,2,'2024-05-10 14:00:00', '2024-05-10 15:30:00'),
+	(1,3,'2024-03-02 07:00:00', '2024-03-02 08:00:00');
+
+insert into professor_franquia (fk_professor_fk_pessoa_codigo,fk_franquia_codigo,data_hora_inicio,data_hora_fim)
+values
+	(4,2,'2024-07-11 06:30:00', '2024-07-11 14:30:00'),
+	(5,1,'2024-05-10 14:00:00', '2024-05-10 22:00:00'),
+	(6,1,'2024-05-10 05:00:00', '2024-05-10 14:00:00'),
+	(7,2,'2024-07-11 14:30:00', '2024-07-11 23:30:00');
+
+insert into professor_atividade (fk_atividade_codigo,fk_professor_fk_pessoa_codigo)
+values
+	(1,6),
+	(2,7),
+	(3,4),
+	(4,5);
 
 ### 9	TABELAS E PRINCIPAIS CONSULTAS<br>
     OBS: Usa template da disciplina disponibilizado no Colab.<br>
@@ -174,5 +382,3 @@ http://www.sis4.com/brModelo/download.html
 
 Link para curso de GIT<br>
 ![https://www.youtube.com/curso_git](https://www.youtube.com/playlist?list=PLo7sFyCeiGUdIyEmHdfbuD2eR4XPDqnN2?raw=true "Title")
-
-
