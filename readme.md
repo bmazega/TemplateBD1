@@ -5,7 +5,7 @@ Trabalho desenvolvido durante a disciplina de BD1
 
 ### 1. COMPONENTES<br>
 Integrantes do grupo<br>
-Brayan Mazega de Freitas Souza - brayanmazega@gmail.com
+Brayan Mazega de Freitas Souza - brayanmazega@gmail.com...<br>
 Irene Schmidt da Silva Alves -  irenealvesbsi@gmail.com...<br>
 Irlane Schmidt da Silva Alves -  irlanesilvabsi@gmail.com...<br>
 
@@ -44,7 +44,7 @@ gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
         Criar o esquema de forma a garantir a redução de informação redundante, possibilidade de valores null, 
         e tuplas falsas (Aplicar os conceitos de normalização abordados).   
         
-![Alt text](https://github.com/discipbd1/trab01/blob/master/images/concept_sample.png?raw=true "Modelo Conceitual")
+![image](https://github.com/user-attachments/assets/d8275e9d-a681-4141-8644-453a227b16bf)
     
     
 #### 5.1 Validação do Modelo Conceitual
