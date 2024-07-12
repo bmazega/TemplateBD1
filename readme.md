@@ -7,6 +7,7 @@ Trabalho desenvolvido durante a disciplina de BD1
 Integrantes do grupo<br>
 Brayan Mazega de Freitas Souza - brayanmazega@gmail.com
 Irene Schmidt da Silva Alves -  irenealvesbsi@gmail.com...<br>
+Irlane Schmidt da Silva Alves -  irlanesilvabsi@gmail.com...<br>
 
 
 ### 2.MINI-MUNDO<br>
