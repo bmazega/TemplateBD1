@@ -53,11 +53,37 @@ gerenciar, atualizar, e que descrevem a proposta/solução a ser desenvolvida.
     [Grupo02]: [Nomes dos que participaram na avaliação]
 
 #### 5.2 Descrição dos dados 
-    [objeto]: [descrição do objeto]
+ALUNO: Tabela que armazena as informações relativas aos alunos.<br>
+
+    NOME: Campo que armazena o nome completo do aluno.<br>
+    CPF: Campo que armazena o número de Cadastro de Pessoa Física para cada aluno.<br>
+    PESO: Campo que armazena o peso do aluno.<br>
+    DATA DE NASCIMENTO: Campo que armazena a data de nascimento do aluno.<br>
+    ALTURA: Campo que armazena a altura do aluno.<br>
+
+PROFESSOR: Tabela que armazena as informações relativas aos professores.<br>
+
+    NOME: Campo que armazena o nome completo do professor.<br>
+    CPF: Campo que armazena o número de Cadastro de Pessoa Física para cada professor.<br>
+    DATA DE NASCIMENTO: Campo que armazena a data de nascimento do professor.<br>
+    ESPECIALIDADE: Campo que armazena a especialidade do professor.<br>
+
+FRANQUIA: Tabela que armazena as informações relativas às academias.<br>
+
+    LOCALIZAÇÃO: Campo que armazena a localização da academia.<br>
+    HORÁRIO DE ABERTURA: Campo que armazena o horário de abertura da academia.<br>
+    HORÁRIO DE FECHAMENTO: Campo que armazena o horário de fechamento da academia.<br>
+
+PLANO: Tabela que armazena as informações relativas aos planos oferecidos.<br>
+
+    NOME: Campo que armazena o nome do plano.<br>
+    VALOR: Campo que armazena o valor mensal do plano.<br>
+    PERÍODO: Campo que armazena o período de duração do plano.<br>
+
+ATIVIDADE: Tabela que armazena as informações relativas às atividades oferecidas.<br>
+
+    NOME: Campo que armazena o nome da atividade.<br>
     
-    EXEMPLO:
-    CLIENTE: Tabela que armazena as informações relativas ao cliente<br>
-    CPF: campo que armazena o número de Cadastro de Pessoa Física para cada cliente da empresa.<br>
 
 ># Marco de Entrega 01: Do item 1 até o item 5.2 (5 PTS) <br> 
 
